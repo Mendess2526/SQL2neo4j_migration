@@ -13,20 +13,19 @@ def runQuery(driver, query):
 def clearDB(driver):
     with driver.session() as session:
         with session.begin_transaction() as tx:
-            tx.run("MATCH ()-[r]->() DELETE r;")
-            tx.run("MATCH (n)        DELETE n;")
+            tx.run("MATCH (n) DETACH DELETE n;")
 
 def create_filme(tx,id,titulo,subtitulo,cartaz,anoLancamento,classificacaoEtaria,duracao,sinopse,classificacao):
-    tx.run("CREATE (f:Filme) "
-           "SET f.ID = $id "
-           "SET f.Titulo = $titulo "
-           "SET f.Subtitulo = $subtitulo "
-           "SET f.Cartaz = $cartaz "
-           "SET f.AnoLancamento = $anoLancamento "
-           "SET f.ClassificacaoEtaria = $classificacaoEtaria "
-           "SET f.Duracao = $duracao "
-           "SET f.Sinopse = $sinopse "
-           "SET f.Classificacao = $classificacao;",
+    tx.run("CREATE (f:Filme {"
+           "ID: $id,"
+           "Titulo: $titulo, "
+           "Subtitulo: $subtitulo, "
+           "Cartaz: $cartaz, "
+           "AnoLancamento: $anoLancamento, "
+           "ClassificacaoEtaria: $classificacaoEtaria, "
+           "Duracao: $duracao, "
+           "Sinopse: $sinopse, "
+           "Classificacao: $classificacao });",
            id=id,
            titulo=titulo,
            subtitulo=subtitulo,
@@ -38,28 +37,29 @@ def create_filme(tx,id,titulo,subtitulo,cartaz,anoLancamento,classificacaoEtaria
            classificacao=classificacao)
 
 def create_categoria(tx,id,nome):
-    tx.run("CREATE (c:Categoria) "
-           "SET c.ID = $id "
-           "SET c.Nome = $nome;",
+    tx.run("CREATE (c:Categoria {"
+           "ID: $id, "
+           "Nome: $nome });",
            id=id,
            nome=nome)
 
 def create_cidade(tx,id,nome):
-    tx.run("CREATE (c:Cidade) "
-           "SET c.ID = $id "
-           "SET c.Nome = $nome;",
+    tx.run("CREATE (c:Cidade {"
+           "ID: $id, "
+           "Nome: $nome});",
            id=id,
            nome=nome)
 #DEPENDE DAS CIDADES!!!
 def create_cinema(tx,id,nome,rua,codigoPostal,classificacao,cidade_id):
-    tx.run("MATCH (city:Cidade {ID: $id}) "
-           "CREATE (c:Cinema) "
-           "SET c.ID = $id "
-           "SET c.Nome = $nome "
-           "SET c.Rua = $rua "
-           "SET c.CodigoPostal = $codigoPostal "
-           "SET c.Classificacao = $classificacao "
+    tx.run("MATCH (city:Cidade {ID: $cidade_id}) "
+           "CREATE (c:Cinema {"
+           "ID: $id,"
+           "Nome: $nome,"
+           "Rua: $rua,"
+           "CodigoPostal: $codigoPostal,"
+           "Classificacao: $classificacao})"
            "CREATE (c)-[:LOCALIZADO]->(city);",
+           cidade_id=cidade_id,
            id=id,
            nome=nome,
            rua=rua,
@@ -67,11 +67,11 @@ def create_cinema(tx,id,nome,rua,codigoPostal,classificacao,cidade_id):
            classificacao=classificacao)
 
 def create_participante(tx,id,nome,dataNascimento,fotografia):
-    tx.run("CREATE (p:Participante) "
-           "SET p.ID = $id "
-           "SET p.Nome = $nome "
-           "SET p.DataNascimento = $dataNascimento "
-           "SET p.Fotografia = $fotografia;",
+    tx.run("CREATE (p:Participante { "
+           "ID: $id, "
+           "Nome: $nome, "
+           "DataNascimento: $dataNascimento, "
+           "Fotografia: $fotografia});",
            id=id,
            nome=nome,
            dataNascimento=str(dataNascimento),

@@ -99,14 +99,14 @@ for row in cursorFilme_tR_Participante.fetchall():
     fTRp['Participante_ID'] = row[1]
     filmeTRparticipante.append(fTRp)
 
-db.close()
+driver.close()
 
-neoDriver = neo4j_module.connect()
+driver = neo4j_module.connect()
 
 print("***\nCLEARING DATABASE\n***")
-neo4j_module.clearDB(neoDriver)
+neo4j_module.clearDB(driver)
 
-with neoDriver.session() as session:
+with driver.session() as session:
     print("MIGRATING CATEGORIAS")
     with session.begin_transaction() as tx:
         for cat in categorias:
@@ -180,7 +180,7 @@ with neoDriver.session() as session:
                                                                  relationship['Participante_ID'])
 
 print("REMOVING UNNECESSARY ID'S")
-neo4j_module.runQuery(neoDriver,"MATCH(n) REMOVE n.ID;")
+neo4j_module.runQuery(driver,"MATCH(n) REMOVE n.ID;")
 
-neoDriver.close()
+driver.close()
 print("ALL DONE :)")
