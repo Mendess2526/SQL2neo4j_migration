@@ -1,13 +1,13 @@
-import MySQLdb
+import MySQLdriver
 
 def connect():
-    db = MySQLdb.connect(host="localhost",
+    driver = MySQLdb.connect(host="localhost",
                          user="aplicacao",
                          passwd="ap123",
-                         db="FilmesSrJoaquim")
-    return db
+                         driver="FilmesSrJoaquim")
+    return driver
 
-def runQuery(db, query):
-    cursor = db.cursor()
+def runQuery(driver, query):
+    cursor = driver.cursor()
     cursor.execute(query)
     return cursor

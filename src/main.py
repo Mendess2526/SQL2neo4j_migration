@@ -1,19 +1,17 @@
 import sql_module
-from sql_module import runQuery
 import neo4j_module
-import json
 
-db = sql_module.connect()
+driver = sql_module.connect()
 
-cursorCategoria             = runQuery(db,"SELECT * FROM Categoria;")
-cursorCidade                = runQuery(db,"SELECT * FROM Cidade;")
-cursorCinema                = runQuery(db,"SELECT * FROM Cinema;")
-cursorFilme                 = runQuery(db,"SELECT * FROM Filme;")
-cursorFilme_a_Categoria     = runQuery(db,"SELECT * FROM Filme_associado_Categoria;")
-cursorFilme_e_Cinema        = runQuery(db,"SELECT * FROM Filme_exibido_Cinema;")
-cursorFilme_tA_Participante = runQuery(db,"SELECT * FROM Filme_temAtor_Participante;")
-cursorFilme_tR_Participante = runQuery(db,"SELECT * FROM Filme_temRealizador_Participante;")
-cursorParticipante          = runQuery(db,"SELECT * FROM Participante;")
+cursorCategoria             = sql_module.runQuery(driver,"SELECT * FROM Categoria;")
+cursorCidade                = sql_module.runQuery(driver,"SELECT * FROM Cidade;")
+cursorCinema                = sql_module.runQuery(driver,"SELECT * FROM Cinema;")
+cursorFilme                 = sql_module.runQuery(driver,"SELECT * FROM Filme;")
+cursorFilme_a_Categoria     = sql_module.runQuery(driver,"SELECT * FROM Filme_associado_Categoria;")
+cursorFilme_e_Cinema        = sql_module.runQuery(driver,"SELECT * FROM Filme_exibido_Cinema;")
+cursorFilme_tA_Participante = sql_module.runQuery(driver,"SELECT * FROM Filme_temAtor_Participante;")
+cursorFilme_tR_Participante = sql_module.runQuery(driver,"SELECT * FROM Filme_temRealizador_Participante;")
+cursorParticipante          = sql_module.runQuery(driver,"SELECT * FROM Participante;")
 
 categorias = []
 cidades = []
