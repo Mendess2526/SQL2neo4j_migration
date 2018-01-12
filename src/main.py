@@ -101,21 +101,6 @@ for row in cursorFilme_tR_Participante.fetchall():
     fTRp['Participante_ID'] = row[1]
     filmeTRparticipante.append(fTRp)
 
-# tables = [categorias,           #
-#           cidades,              #
-#           cinemas,              #
-#           filmes,               #
-#           filmeAcat,
-#           filmeEcinema,
-#           filmeTAparticipante,
-#           filmeTRparticipante,
-#           participantes]        #
-
-# for table in tables:
-#     for thing in table:
-#         print(thing)
-#     print("\n")
-
 db.close()
 
 neoDriver = neo4j_module.connect()
@@ -195,6 +180,9 @@ with neoDriver.session() as session:
             neo4j_module.create_filme_temRealizador_participante(tx,
                                                                  relationship['Filme_ID'],
                                                                  relationship['Participante_ID'])
+
+print("REMOVING UNNECESSARY ID'S")
+neo4j_module.runQuery(neoDriver,"MATCH(n) REMOVE n.ID;")
 
 neoDriver.close()
 print("ALL DONE :)")

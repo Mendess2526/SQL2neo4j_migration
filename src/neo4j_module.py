@@ -5,7 +5,7 @@ def connect():
     driver = GraphDatabase.driver(uri, auth=("neo4j", "ap123"))
     return driver
 
-def runInsert(driver, query):
+def runQuery(driver, query):
     with driver.session() as session:
         with session.begin_transaction() as tx:
             tx.run(query)
