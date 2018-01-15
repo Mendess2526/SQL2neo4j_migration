@@ -2,7 +2,7 @@ from neo4j.v1 import GraphDatabase
 
 def connect():
     uri = "bolt://localhost:7687"
-    driver = GraphDatabase.driver(uri, auth=("neo4j", "ap123"))
+    driver = GraphDatabase.driver(uri, auth=("neo4j", "mig123"))
     return driver
 
 def runQuery(driver, query):
