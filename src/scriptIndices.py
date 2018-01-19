@@ -1,7 +1,7 @@
 import neo4j_module
 neoDriver = neo4j_module.connect()
 
-print("CREATING INDEX ON Filme (Nome)")
+print("CREATING INDEX ON Filme (Titulo)")
 neo4j_module.runQuery(neoDriver,"CREATE INDEX ON :Filme(Titulo);")
 print("CREATING INDEX ON Participantes (Nome)")
 neo4j_module.runQuery(neoDriver,"CREATE INDEX ON :Participante(Nome);")

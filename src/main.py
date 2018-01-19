@@ -1,3 +1,6 @@
+print("\n******************************\n---MIGRATION---\n******************************\n")
 import migracao
-import scriptIndices.py
-#import scriptPovoamento.py
+print("\n******************************\n---INDEXES---\n******************************\n")
+import scriptIndices
+print("\n******************************\n---NEW INSERTIONS---\n******************************\n")
+import scriptPovoamento

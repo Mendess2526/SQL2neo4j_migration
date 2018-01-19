@@ -1,0 +1,5 @@
+CREATE INDEX ON :Filme(Titulo);
+CREATE INDEX ON :Participante(Nome);
+
+CREATE CONSTRAINT ON (c:Categoria) ASSERT c.Nome IS UNIQUE;
+CREATE CONSTRAINT ON (c:Cidade) ASSERT c.Nome IS UNIQUE;
